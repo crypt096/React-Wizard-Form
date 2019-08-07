@@ -5,7 +5,7 @@ import { Col , Card, CardBody, Row, Button , Label , Input , FormGroup } from 'r
 
 export class AddNewSubgenre extends Component {
     render() {
-        const { nextPage , setNewSubgenreName, isDescripitionRequired } = this.props;
+        const { nextPage , setNewSubgenreName, isDescripitionRequired , previousPage } = this.props;
         return (
             <div>
             <Col sm="12">
@@ -34,6 +34,13 @@ export class AddNewSubgenre extends Component {
                         marginRight : '20px',
                         width : '130px' }}>
                     Next
+                    </Button>
+
+                    <Button outline color="secondary" className="pull-right" onClick={previousPage} style={{
+                    marginRight : '20px',
+                    width : '130px' }}>
+                    <i className="fa fa-chevron-left" />
+                        &nbsp; Back
                     </Button>
                 </div>
                 </Card>

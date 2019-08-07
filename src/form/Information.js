@@ -16,7 +16,7 @@ import {
 const Information = (props) => {
   const { handleSubmit, previousPage,nextPage , onCheckboxBtnClick , logResults , getBookTitle , getBookAuthor ,
   getBookIsbn, getBookPublisher , getBookDatePublished , getBookNumOfPages, getBookFormat, getBookEdition, getBookEditionLanguage,
-  getBookDescription , checkDesReq } = props;
+  getBookDescription , checkDesReq , checkIfPageIsSkipped} = props;
   return (
     <form onSubmit={handleSubmit}>
       <Col xs="12" sm="12">
@@ -119,7 +119,7 @@ const Information = (props) => {
               width : '130px' }}>
                Add
             </Button>
-            <Button outline color="secondary" className="pull-right" onClick={previousPage} style={{
+            <Button outline color="secondary" className="pull-right" onClick={checkIfPageIsSkipped} style={{
               marginRight : '20px',
               width : '130px' }}>
               <i className="fa fa-chevron-left" />

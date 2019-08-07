@@ -11,10 +11,7 @@ import {
 
 
 const Genre = (props) => {
-  const { handleSubmit , onCheckboxBtnClick , active } = props;
-  props = {
-    cSelected : []
-  }
+  const { handleSubmit , onCheckboxBtnClick , active , checkGenre } = props;
   return (
     <form onSubmit={handleSubmit}>
       <Col sm="12">
@@ -108,7 +105,7 @@ const Genre = (props) => {
             </Row>
           </CardBody>
           <div style={{ padding : '20px'}}>
-            <Button color="secondary" className="pull-right" type="submit" style={{
+            <Button color="secondary" className="pull-right" type="submit" onClick={checkGenre} style={{
               marginRight: '60px',
               width : '130px'}}>
                Next

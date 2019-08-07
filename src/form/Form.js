@@ -22,7 +22,8 @@ class Form extends Component {
         {title: 'Add new subgenre'},
         {title: 'Information'}
       ],
-      cSelected : [],
+      gSelected : [],
+      subgSelected : [],
       newSubgenreName : '',
       isDescripitionRequired : '',
       bookTitle : '',
@@ -34,10 +35,12 @@ class Form extends Component {
       bookFormat: '',
       bookEdition : '',
       bookEditionLang : '',
-      bookDescription : ''
+      bookDescription : '',
+      isPageSkipped : false
     };
 
     this.onCheckboxBtnClick = this.onCheckboxBtnClick.bind(this);
+    this.onSubgenreBtnClick = this.onSubgenreBtnClick.bind(this);
     this.logResults = this.logResults.bind(this);
   }
 
@@ -51,16 +54,32 @@ class Form extends Component {
 
   skipPage() {
     this.setState({ page: this.state.page + 2 })
+    this.setState({ isPageSkipped : true})
+  }
+
+  skippedPageBack() {
+    this.setState({ page: this.state.page - 2 })
+    this.setState({ isPageSkipped : false})
   }
 
   onCheckboxBtnClick(selected) {
-    const index = this.state.cSelected.indexOf(selected);
+    const index = this.state.gSelected.indexOf(selected);
     if (index < 0) {
-      this.state.cSelected.push(selected);
+      this.state.gSelected.push(selected);
     } else {
-      this.state.cSelected.splice(index, 1);
+      this.state.gSelected.splice(index, 1);
     }
-    this.setState({ cSelected: [...this.state.cSelected] });
+    this.setState({ gSelected: [...this.state.gSelected] });
+  }
+
+  onSubgenreBtnClick(selected) {
+    const index = this.state.subgSelected.indexOf(selected);
+    if (index < 0) {
+      this.state.subgSelected.push(selected);
+    } else {
+      this.state.subgSelected.splice(index, 1);
+    }
+    this.setState({ subgSelected: [...this.state.subgSelected] });
   }
 
   logResults(e) {
@@ -71,7 +90,8 @@ class Form extends Component {
   resetForm() {
     this.setState({ 
       page : this.state.page = 0,
-      cSelected : [],
+      gSelected : [],
+      subgSelected : [],
       newSubgenreName : '',
       isDescripitionRequired : '',
       bookTitle : '',
@@ -83,7 +103,8 @@ class Form extends Component {
       bookFormat: '',
       bookEdition : '',
       bookEditionLang : '',
-      bookDescription : ''
+      bookDescription : '',
+      isPageSkipped : false
      })
   }
 
@@ -135,12 +156,38 @@ class Form extends Component {
     this.setState({ bookDescription : e.target.value})
   }
 
+  checkIfPageIsSkipped() {
+    if(((this.state.page === 3) && (this.state.isPageSkipped === true))){
+      this.skippedPageBack();
+    }else{
+      this.previousPage();
+    }
+  }
+
   checkDesReq(e) {
     if((this.state.isDescripitionRequired) === true && (this.state.bookDescription === '')) {
       e.preventDefault();
       console.log('You can not proceed further until you fill Description!');
     }else{
       this.nextPage();
+    }
+  }
+
+  checkGenre(e) {
+    if (this.state.gSelected.length <= 0) {
+      e.preventDefault();
+      console.log('You must select Genre first!');
+    } else {
+      this.nextPage();
+    }
+  }
+
+  checkSubGenre(e) {
+    if (this.state.subgSelected.length <= 0) {
+      e.preventDefault();
+      console.log('You must select Subgenre first!');
+    } else {
+      this.skipPage();
     }
   }
 
@@ -156,23 +203,27 @@ class Form extends Component {
         completeColor="#B1BFCC"
         defaultColor="#B1BFCC"
         circleFontSize="20px"/>
+
         {page === 0 && <Genre 
         onSubmit={this.nextPage}
         onCheckboxBtnClick={this.onCheckboxBtnClick.bind(this)}
-        active={this.state.cSelected}
+        active={this.state.gSelected}
+        checkGenre={this.checkGenre.bind(this)}
         />}
         {page === 1 && (
           <Subgenre
             previousPage={this.previousPage}
             onSubmit={this.nextPage}
-            onCheckboxBtnClick={this.onCheckboxBtnClick.bind(this)}
+            onSubgenreBtnClick={this.onSubgenreBtnClick.bind(this)}
             skipPage={this.skipPage.bind(this)}
-            active={this.state.cSelected}
+            active={this.state.subgSelected}
+            checkSubGenre={this.checkSubGenre.bind(this)}
           />
         )}
         {page === 2 && (
           <AddNewSubgenre
           nextPage={this.nextPage}
+          previousPage={this.previousPage}
           setNewSubgenreName={this.setNewSubgenreName.bind(this)}
           isDescripitionRequired={this.isDescripitionRequired.bind(this)}
           />
@@ -193,6 +244,7 @@ class Form extends Component {
             getBookEditionLanguage={this.getBookEditionLanguage.bind(this)}
             getBookDescription={this.getBookDescription.bind(this)}
             checkDesReq={this.checkDesReq.bind(this)}
+            checkIfPageIsSkipped={this.checkIfPageIsSkipped.bind(this)}
           />
         )}
         {page === 4 && (
@@ -201,7 +253,8 @@ class Form extends Component {
           resetForm={this.resetForm.bind(this)}
           />
         )}
-        <p>Selected: {JSON.stringify(this.state)}</p>
+        {/* You can track things that you add dynamically here */}
+        {/* <p>Selected: {JSON.stringify(this.state)}</p> */}
       </Card>
       </Container>
     );

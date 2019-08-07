@@ -10,7 +10,7 @@ import {
 } from 'reactstrap';
 
 const Subgenre = (props) => {
-  const { handleSubmit, previousPage , nextPage, skipPage , onCheckboxBtnClick , active } = props;
+  const { handleSubmit, previousPage , nextPage, skipPage , onSubgenreBtnClick , active , checkSubGenre } = props;
 
   return (
     <form onSubmit={handleSubmit}>
@@ -21,7 +21,7 @@ const Subgenre = (props) => {
               <div className="col-sm-12 text-center">
               <Button outline color="secondary"
                size="lg" 
-               onClick={() => onCheckboxBtnClick('Subgenre 1')}
+               onClick={() => onSubgenreBtnClick('Subgenre 1')}
                active={active.includes('Subgenre 1')}
                style={
                  {margin : '20px',
@@ -31,7 +31,7 @@ const Subgenre = (props) => {
 
               <Button outline color="secondary"
                size="lg" 
-               onClick={() => onCheckboxBtnClick('Subgenre 2')}
+               onClick={() => onSubgenreBtnClick('Subgenre 2')}
                active={active.includes('Subgenre 2')}
                style={
                  {margin : '20px',
@@ -41,7 +41,7 @@ const Subgenre = (props) => {
 
               <Button outline color="secondary"
                size="lg" 
-               onClick={() => onCheckboxBtnClick('Subgenre 3')} 
+               onClick={() => onSubgenreBtnClick('Subgenre 3')} 
                active={active.includes('Subgenre 3')}
                style={
                  {margin : '20px',
@@ -51,7 +51,7 @@ const Subgenre = (props) => {
 
               <Button outline color="secondary"
                size="lg" 
-               onClick={() => onCheckboxBtnClick('Subgenre 4')} 
+               onClick={() => onSubgenreBtnClick('Subgenre 4')} 
                active={active.includes('Subgenre 4')}
                style={
                  {margin : '20px',
@@ -64,7 +64,7 @@ const Subgenre = (props) => {
               <div className="col-sm-12 text-center">
               <Button outline color="secondary"
                size="lg" 
-               onClick={() => onCheckboxBtnClick('Subgenre 5')}
+               onClick={() => onSubgenreBtnClick('Subgenre 5')}
                active={active.includes('Subgenre 5')} 
                style={
                  {margin : '20px',
@@ -74,7 +74,7 @@ const Subgenre = (props) => {
 
               <Button outline color="secondary"
                size="lg" 
-               onClick={() => onCheckboxBtnClick('Subgenre 6')}
+               onClick={() => onSubgenreBtnClick('Subgenre 6')}
                active={active.includes('Subgenre 6')} 
                style={
                  {margin : '20px',
@@ -84,7 +84,7 @@ const Subgenre = (props) => {
 
               <Button outline color="secondary"
                size="lg" 
-               onClick={() => onCheckboxBtnClick('Subgenre 7')} 
+               onClick={() => onSubgenreBtnClick('Subgenre 7')} 
                active={active.includes('Subgenre 7')}
                style={
                  {margin : '20px',
@@ -104,7 +104,7 @@ const Subgenre = (props) => {
             </Row>
           </CardBody>
           <div style={{ paddingBottom: 30 }}>
-            <Button color="secondary" className="pull-right" onClick={skipPage} style={{
+            <Button color="secondary" className="pull-right" onClick={checkSubGenre} style={{
               marginRight : '80px',
               width : '130px' }}>
                Next
